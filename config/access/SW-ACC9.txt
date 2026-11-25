@@ -1,0 +1,80 @@
+
+enable
+configure terminal
+hostname SW-ACC9
+line console 0
+logging synchronous
+exec-timeout 0 0
+exit
+no ip domain lookup
+no ip routing
+
+vtp mode client
+vtp version 2
+vtp domain ACADENSPY
+vtp password Lab12345
+
+interface e0/0
+description SW-ACC9_TO_DIS2
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport trunk native vlan 100
+switchport trunk allowed vlan 101,121,122
+no shutdown
+exit
+
+interface e0/1
+description SW-ACC9_TO_DIS1
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport trunk native vlan 100
+switchport trunk allowed vlan 101,121,122,123,124,125,126
+no shutdown
+exit
+
+interface e1/0
+description SW-ACC9_VPC19_VLAN122
+switchport mode access
+switchport access vlan 122
+switchport nonegotiate
+spanning-tree portfast
+spanning-tree bpduguard enable
+switchport port-security
+switchport port-security maximum 2
+switchport port-security mac-address sticky
+switchport port-security violation shutdown
+no shutdown
+exit
+
+interface e1/1
+description SW-ACC9_VPC20_VLAN121
+switchport mode access
+switchport access vlan 121
+switchport nonegotiate
+spanning-tree portfast
+spanning-tree bpduguard enable
+switchport port-security
+switchport port-security maximum 2
+switchport port-security mac-address sticky
+switchport port-security violation shutdown
+no shutdown
+exit
+
+interface e1/2
+description SW-ACC9_VPC21_VLAN122
+switchport mode access
+switchport access vlan 122
+switchport nonegotiate
+spanning-tree portfast
+spanning-tree bpduguard enable
+switchport port-security
+switchport port-security maximum 2
+switchport port-security mac-address sticky
+switchport port-security violation shutdown
+no shutdown
+exit
+
+
+spanning-tree mode rapid-pvst
+
+do wr
